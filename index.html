@@ -1,0 +1,281 @@
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff8f8">
+<title>A little date invitation ♡</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Pacifico&display=swap');
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "DM Sans", sans-serif;
+    color: #49383d;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(255,210,218,.65), transparent 28%),
+      radial-gradient(circle at 90% 35%, rgba(255,225,205,.55), transparent 30%),
+      linear-gradient(180deg, #fff9fa 0%, #fff4f5 52%, #fffaf5 100%);
+    overflow-x: hidden;
+  }
+
+  .floating { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .heart {
+    position: absolute;
+    color: rgba(221, 119, 139, .22);
+    animation: floatUp linear infinite;
+    font-size: 18px;
+  }
+  .h1 { left: 8%; animation-duration: 9s; animation-delay: -2s; }
+  .h2 { left: 28%; animation-duration: 12s; animation-delay: -7s; font-size: 13px; }
+  .h3 { left: 53%; animation-duration: 10s; animation-delay: -4s; }
+  .h4 { left: 78%; animation-duration: 13s; animation-delay: -9s; font-size: 14px; }
+  .h5 { left: 92%; animation-duration: 8s; animation-delay: -5s; font-size: 11px; }
+
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateY(-15vh) rotate(18deg); opacity: 0; }
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 620px);
+    margin: 0 auto;
+    padding: 24px 18px 46px;
+  }
+
+  .top {
+    text-align: center;
+    padding: 34px 12px 22px;
+  }
+
+  .tiny { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #b77c89; font-weight: 600; }
+  h1 {
+    font-family: Pacifico, cursive;
+    font-weight: 400;
+    font-size: clamp(39px, 12vw, 62px);
+    line-height: 1.12;
+    margin: 15px 0 8px;
+    color: #9e596b;
+  }
+  .intro {
+    font-size: 16px;
+    line-height: 1.65;
+    margin: 0 auto;
+    max-width: 430px;
+    color: #6c555b;
+  }
+
+  .date-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 19px;
+    padding: 9px 15px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(191,117,135,.16);
+    box-shadow: 0 7px 24px rgba(120, 69, 82, .07);
+    font-size: 13px;
+    font-weight: 600;
+    color: #8f5363;
+  }
+
+  .card {
+    background: rgba(255,255,255,.74);
+    border: 1px solid rgba(190,126,141,.16);
+    border-radius: 28px;
+    box-shadow: 0 16px 45px rgba(105, 65, 76, .08);
+    backdrop-filter: blur(10px);
+  }
+
+  .plan { padding: 9px; margin-top: 14px; }
+  .stop {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 14px;
+    border-radius: 21px;
+  }
+  .stop + .stop { border-top: 1px dashed rgba(180,115,130,.18); border-radius: 0; }
+  .icon {
+    flex: 0 0 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: #fff0f2;
+    font-size: 25px;
+  }
+  .stop h2 { margin: 0 0 4px; font-size: 17px; color: #533e44; }
+  .stop p { margin: 0; font-size: 13px; line-height: 1.5; color: #846d73; }
+  .time {
+    margin-left: auto;
+    align-self: flex-start;
+    padding-top: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #b06c7c;
+    white-space: nowrap;
+  }
+
+  .message {
+    text-align: center;
+    padding: 29px 22px;
+    margin-top: 16px;
+  }
+  .message .big-heart { font-size: 32px; animation: pulse 1.8s ease-in-out infinite; display: inline-block; }
+  @keyframes pulse { 50% { transform: scale(1.12); } }
+  .message h2 {
+    margin: 10px 0 8px;
+    font-family: Pacifico, cursive;
+    font-size: 29px;
+    font-weight: 400;
+    color: #a25c6e;
+  }
+  .message p { margin: 0; font-size: 14px; line-height: 1.7; color: #735d63; }
+
+  .button-wrap { text-align: center; margin-top: 19px; }
+  button {
+    border: 0;
+    cursor: pointer;
+    font: 600 15px "DM Sans", sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #c87689, #a95b70);
+    padding: 14px 28px;
+    border-radius: 999px;
+    box-shadow: 0 11px 25px rgba(169,91,112,.25);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  button:active { transform: scale(.96); }
+  .answer {
+    min-height: 25px;
+    margin-top: 13px;
+    font-size: 13px;
+    color: #a15c6e;
+    font-weight: 600;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 26px;
+    color: #a6878e;
+    font-size: 12px;
+  }
+
+  .burst {
+    position: fixed;
+    pointer-events: none;
+    z-index: 20;
+    animation: burst 1.15s ease-out forwards;
+  }
+  @keyframes burst {
+    0% { transform: translate(0,0) scale(.7); opacity: 1; }
+    100% { transform: translate(var(--x),var(--y)) rotate(var(--r)) scale(1.2); opacity: 0; }
+  }
+
+  @media (max-width: 390px) {
+    main { padding-left: 13px; padding-right: 13px; }
+    .stop { gap: 11px; padding: 16px 10px; }
+    .icon { flex-basis: 47px; height: 47px; }
+    .time { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="floating" aria-hidden="true">
+  <span class="heart h1">♡</span>
+  <span class="heart h2">♥</span>
+  <span class="heart h3">♡</span>
+  <span class="heart h4">♡</span>
+  <span class="heart h5">♥</span>
+</div>
+
+<main>
+  <section class="top">
+    <div class="tiny">a little invitation ♡</div>
+    <h1>date?</h1>
+    <p class="intro">
+      I have a tiny plan for tomorrow…<br>
+      and it involves my favourite girl.
+    </p>
+    <div class="date-pill">♡ Saturday · October 3rd · 2026 ♡</div>
+  </section>
+
+  <section class="card plan">
+    <div class="stop">
+      <div class="icon">🌅</div>
+      <div>
+        <h2>Beach &amp; sunset</h2>
+        <p>A little walk, a pretty sunset,<br>and some us-time.</p>
+      </div>
+      <div class="time">17:30</div>
+    </div>
+
+    <div class="stop">
+      <div class="icon">🍽️</div>
+      <div>
+        <h2>Dinner</h2>
+        <p>Something tasty, somewhere cozy,<br>just the two of us.</p>
+      </div>
+      <div class="time">after</div>
+    </div>
+
+    <div class="stop">
+      <div class="icon">🍰</div>
+      <div>
+        <h2>Dessert</h2>
+        <p>Because obviously the date needs<br>a sweet ending.</p>
+      </div>
+      <div class="time">♡</div>
+    </div>
+  </section>
+
+  <section class="card message">
+    <div class="big-heart">♡</div>
+    <h2>Will you come with me?</h2>
+    <p>
+      already a month together.. well more than that but we'll call it a month 😂 with my cutie ♡
+    </p>
+    <div class="button-wrap">
+      <button id="yes">yes, obviously ♡</button>
+      <div class="answer" id="answer"></div>
+    </div>
+  </section>
+
+  <footer>made with a suspicious amount of love ♡</footer>
+</main>
+
+<script>
+  const btn = document.getElementById("yes");
+  const answer = document.getElementById("answer");
+
+  btn.addEventListener("click", () => {
+    answer.textContent = "hehe, I was hoping you'd say that ♡";
+    btn.textContent = "date locked in ♡";
+    btn.disabled = true;
+
+    const symbols = ["♥","♡","✦","♡","♥","✧"];
+    for (let i = 0; i < 24; i++) {
+      const el = document.createElement("span");
+      el.className = "burst";
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = (window.innerWidth / 2 + (Math.random() - .5) * 90) + "px";
+      el.style.top = (window.innerHeight * .72) + "px";
+      el.style.fontSize = (12 + Math.random() * 14) + "px";
+      el.style.setProperty("--x", ((Math.random() - .5) * 300) + "px");
+      el.style.setProperty("--y", (-80 - Math.random() * 300) + "px");
+      el.style.setProperty("--r", ((Math.random() - .5) * 90) + "deg");
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
+    }
+  });
+</script>
+</body>
+</html>
